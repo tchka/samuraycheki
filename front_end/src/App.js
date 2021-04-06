@@ -4,6 +4,8 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+/*Components*/
+import Header from "./components/Header/Header";
 
 
 const App = () => {
@@ -12,7 +14,7 @@ const App = () => {
             <Container fluid={true}>
                 <Row>
                     <Col>
-                        {/*Сдесь будет хедер*/}
+                        <Header/>
                     </Col>
                 </Row>
                 <Row>
@@ -38,7 +40,7 @@ const App = () => {
                     </Col>
                 </Row>
             </Container>
-            <Container>
+            <Container fluid={true}>
                 <Row>
                     <Col>
                         {/*footer*/}
