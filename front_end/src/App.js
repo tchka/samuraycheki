@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col'
 /*Components*/
 import Header from "./components/Header/Header";
 import NavMenuContainer from "./components/NavMenuContainer/NavMenuContainer";
+import PostListContainer from "./components/Posts/PostListContainer/PostListContainer";
 
 
 const App = () => {
@@ -26,10 +27,8 @@ const App = () => {
             </Container>
             <Container>
                 <Row>
-                    <Col sm={8}>{/*Сдесь контент*/}
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab commodi deserunt dolor
-                        doloribus earum eos est fuga, nostrum omnis optio perferendis porro quae
-                        quibusdam quo quod, sapiente temporibus voluptatum. Quia.
+                    <Col sm={8}>
+                        <PostListContainer/>
                     </Col>
                     <Col sm={4}>{/*Место для популярных статей*/}
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab commodi deserunt dolor

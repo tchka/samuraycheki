@@ -1,0 +1,10 @@
+.container {
+    border: 1px solid #e5e9eb;
+    height: 40px;
+    padding: 0 10px;
+    display: flex;
+}
+
+.wrapper {
+    margin: auto;
+}
