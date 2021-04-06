@@ -41,7 +41,7 @@ const PostItem = props => {
                 </Row>
                 <Row>
                     <div className={s.container}>
-                        <img src={post} alt=""/>
+                        <img className={s.post_img} src={post} alt=""/>
                     </div>
                 </Row>
                 <Row>

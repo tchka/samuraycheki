@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import NavMenu from "./NavMenu/NavMenu";
 
 const NavMenuContainer = props => {
-    return <NavMenu/>
+    return <div style={{marginBottom: "30px"}}><NavMenu/></div>
 }
 
 let mapStateToProps = (state) => {

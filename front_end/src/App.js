@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col'
 import Header from "./components/Header/Header";
 import NavMenuContainer from "./components/NavMenuContainer/NavMenuContainer";
 import PostListContainer from "./components/Posts/PostListContainer/PostListContainer";
+import Footer from "./components/Footer/Footer";
 
 
 const App = () => {
@@ -31,19 +32,38 @@ const App = () => {
                         <PostListContainer/>
                     </Col>
                     <Col sm={4}>{/*Место для популярных статей*/}
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab commodi deserunt dolor
-                        doloribus earum eos est fuga, nostrum omnis optio perferendis porro quae
-                        quibusdam quo quod, sapiente temporibus voluptatum. Quia.
+                        <div style={{marginBottom: '30px'}}>
+                            Сдесь будут популярные статьи а пока текст рыба
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab commodi deserunt dolor
+                            doloribus earum eos est fuga, nostrum omnis optio perferendis porro quae
+                            quibusdam quo quod, sapiente temporibus voluptatum. Quia.
+                        </div>
+                        <div style={{marginBottom: '30px'}}>
+                            Сдесь будут популярные статьи а пока текст рыба
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab commodi deserunt dolor
+                            doloribus earum eos est fuga, nostrum omnis optio perferendis porro quae
+                            quibusdam quo quod, sapiente temporibus voluptatum. Quia.
+                        </div>
+                        <div style={{marginBottom: '30px'}}>
+                            Сдесь будут популярные статьи а пока текст рыба
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab commodi deserunt dolor
+                            doloribus earum eos est fuga, nostrum omnis optio perferendis porro quae
+                            quibusdam quo quod, sapiente temporibus voluptatum. Quia.
+                        </div>
+                        <div style={{marginBottom: '30px'}}>
+                            Сдесь будут популярные статьи а пока текст рыба
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab commodi deserunt dolor
+                            doloribus earum eos est fuga, nostrum omnis optio perferendis porro quae
+                            quibusdam quo quod, sapiente temporibus voluptatum. Quia.
+                        </div>
                     </Col>
+
                 </Row>
             </Container>
             <Container fluid={true}>
                 <Row>
                     <Col>
-                        {/*footer*/}
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab commodi deserunt dolor
-                        doloribus earum eos est fuga, nostrum omnis optio perferendis porro quae
-                        quibusdam quo quod, sapiente temporibus voluptatum. Quia.
+                        <Footer/>
                     </Col>
                 </Row>
             </Container>

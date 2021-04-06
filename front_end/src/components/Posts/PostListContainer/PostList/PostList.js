@@ -6,7 +6,7 @@ import PostItem from "./PostItem/PostItem";
 
 const PostList = props => {
     return (
-        <>
+        <div>
             <PostItem/>
             <PostItem/>
             <PostItem/>
@@ -15,7 +15,7 @@ const PostList = props => {
             <PostItem/>
             <PostItem/>
             <PostItem/>
-        </>
+        </div>
     )
 }
 
