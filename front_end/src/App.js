@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 /*Components*/
 import Header from "./components/Header/Header";
+import NavMenuContainer from "./components/NavMenuContainer/NavMenuContainer";
 
 
 const App = () => {
@@ -19,10 +20,7 @@ const App = () => {
                 </Row>
                 <Row>
                     <Col>
-                        {/*Сдесь будет навигация*/}
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolorum impedit
-                        inventore ipsum officia perferendis similique sunt vero? Autem consectetur corporis dolore
-                        doloremque ipsum laudantium nemo saepe sunt tempore vitae?
+                        <NavMenuContainer/>
                     </Col>
                 </Row>
             </Container>
