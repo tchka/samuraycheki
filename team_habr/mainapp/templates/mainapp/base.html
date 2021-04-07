@@ -1,0 +1,39 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    {% block title  %}
+        <title>{{ title|capfirst }}</title>
+    {% endblock %}
+
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% endblock %}
+
+    {% block fonts %}
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
+    {% endblock %}
+</head>
+
+<body class="nl">
+    <div class="layout">
+        <div class="layout__row layout__row_services">
+            {% include 'base_inc_layout__row_services.html' %}
+        </div>
+        <div class="layout__row layout__row_navbar">
+            {% include 'base_inc_layout__row_navbar.html' %}
+        </div>
+        <div class="layout__row layout__row_body">
+            {% include 'base_inc_layout__row_body.html' %}
+        </div>
+        <div class="layout__row layout__row_promo-blocks">
+            {% include 'base_inc_layout__row_promo-blocks.html' %}
+        </div>
+        <div class="layout__row layout__row_footer">
+            {% include 'base_inc_layout__row_footer.html' %}
+        </div>
+    </div>
+</body>
+
+</html>
