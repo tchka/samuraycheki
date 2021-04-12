@@ -11,7 +11,7 @@ class UserListSerializer(serializers.ModelSerializer):
         fields = ('user_name', 'first_name', 'last_name', 'email')
 
 
-class CategoryDetailSerializer(serializers.ModelSerializer):
+class UserDetailSerializer(serializers.ModelSerializer):
     """Детализированный список пользователей"""
 
     class Meta:
