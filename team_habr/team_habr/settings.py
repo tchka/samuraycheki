@@ -37,9 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainapp',
-    'authapp',
+
+    'rest_framework',
+    
+    'main_app',
+    'auth_app',
 ]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,8 +62,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [   os.path.join(BASE_DIR, 'templates'),
-                    os.path.join(BASE_DIR, 'mainapp', 'templates', 'mainapp'),
-                    os.path.join(BASE_DIR, 'authapp', 'templates', 'authapp', 'Templ'),
+                    os.path.join(BASE_DIR, 'main_app', 'templates', 'main_app'),
+                    os.path.join(BASE_DIR, 'auth_app', 'templates', 'auth_app', 'Templ'),
                 ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -104,6 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'auth_app.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -124,13 +130,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    BASE_DIR / 'static',
 )
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
-AUTH_USER_MODEL = 'authapp.User'
 
 
 
