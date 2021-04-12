@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Программирование",
+    "slug": "programming"
+  },
+  {
+    "name": "Хранение данных",
+    "slug": "data-storage"
+  },
+  {
+    "name": "Обработка изображений",
+    "slug": "image-processing"
+  },
+  {
+    "name": "Высокая производительность",
+    "slug": "high-performance"
+  },
+  {
+    "name": "Информационная безопасность",
+    "slug": "information-security"
+  },
+  {
+    "name": "Сетевое оборудование",
+    "slug": "network-equipment"
+  },
+  {
+    "name": "Контекcтная реклама",
+    "slug": "contextual-advertising"
+  },
+  {
+    "name": "Управление проектами",
+    "slug": "project-management"
+  },
+  {
+    "name": "Веб-дизайн",
+    "slug": "web-design"
+  }
+]
