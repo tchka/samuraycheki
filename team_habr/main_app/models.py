@@ -85,7 +85,9 @@ class Article(models.Model):
         editable=False,
         unique=True)
     tags = models.ManyToManyField(Tag, verbose_name='Тег', blank=True)
-    poster = models.ImageField('Постер', upload_to='posters/')
+    # , blank=True, null=True в poster надо убрать! postman не смог отправить файл
+    # пришлось ограничить
+    poster = models.ImageField('Постер', upload_to='posters/', blank=True, null=True)
     short_desc = models.CharField('Описание', max_length=512)
     text = models.TextField('Текст')
     status = models.CharField('Статус', max_length=2, choices=STATUS_CHOICES, default='DR')
@@ -106,7 +108,7 @@ class Article(models.Model):
         """
 
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
 
     class Meta:

@@ -3,6 +3,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import Article
+from auth_app.models import User
 from .serializers import ArticleDetailSerializer, ArticleListSerializer
 
 class ArticleView(ListCreateAPIView):
@@ -17,7 +18,12 @@ class ArticleView(ListCreateAPIView):
     # Поэтому в каждом post запросе используем параметр author_id и используем его для получения
     # соответствующего автора из базы.
     def perform_create(self, serializer):
-        author = get_object_or_404(settings.AUTH_USER_MODEL, id=self.request.data.get('author_id'))
+        # settings.AUTH_USER_MODEL = 'auth_app.User'
+        print(self.request.data)
+        print(settings.AUTH_USER_MODEL)
+        print(get_object_or_404(User, id=self.request.data.get('author')))
+        author = get_object_or_404(User, id=self.request.data.get('author'))
+        print(author)
         return serializer.save(author=author)
 
 class SingleArticleView(RetrieveUpdateDestroyAPIView):
