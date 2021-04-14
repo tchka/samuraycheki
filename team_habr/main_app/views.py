@@ -2,7 +2,7 @@ from django.conf import settings
 from rest_framework.generics import get_object_or_404
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
-from .models import Article
+from .models import Article, Category
 from auth_app.models import User
 from .serializers import ArticleDetailSerializer, ArticleListSerializer
 
@@ -19,12 +19,9 @@ class ArticleView(ListCreateAPIView):
     # соответствующего автора из базы.
     def perform_create(self, serializer):
         # settings.AUTH_USER_MODEL = 'auth_app.User'
-        print(self.request.data)
-        print(settings.AUTH_USER_MODEL)
-        print(get_object_or_404(User, id=self.request.data.get('author')))
+        category = get_object_or_404(Category, id=self.request.data.get('category'))
         author = get_object_or_404(User, id=self.request.data.get('author'))
-        print(author)
-        return serializer.save(author=author)
+        return serializer.save(author=author, category=category)
 
 class SingleArticleView(RetrieveUpdateDestroyAPIView):
     '''
