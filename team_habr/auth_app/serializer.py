@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from authapp.models import User
+from auth_app.models import User
 
 
 class UserListSerializer(serializers.ModelSerializer):

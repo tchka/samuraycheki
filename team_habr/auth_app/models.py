@@ -26,7 +26,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, unique=True, null=False, db_index=True,
                                 on_delete=models.CASCADE)
     gender = models.CharField('Пол', max_length=1, choices=GENDER_CHOICES)
-    date_of_birth = models.DateTimeField('Дата рождение', blank=True, null=True)
+    date_of_birth = models.DateTimeField('Дата рождения', blank=True, null=True)
     avatar = models.ImageField('Аватар', upload_to='avatars/', default='avatar/default_avatar.jpg')
 
     @receiver(post_save, sender=User)
