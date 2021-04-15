@@ -3,7 +3,6 @@ asgiref==3.3.4
 certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
-conda==4.3.16
 coreapi==2.3.3
 coreschema==0.0.4
 cryptography==3.4.7
@@ -27,9 +26,7 @@ MarkupSafe==1.1.1
 oauthlib==3.1.0
 packaging==20.9
 Pillow==8.2.0
-pipenv==2020.8.13
 psycopg2-binary==2.8.6
-pycosat==0.6.3
 pycparser==2.20
 PyJWT==2.0.1
 pyparsing==2.4.7
