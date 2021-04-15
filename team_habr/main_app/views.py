@@ -30,3 +30,6 @@ class SingleArticleView(RetrieveUpdateDestroyAPIView):
     '''
     queryset = Article.objects.all()
     serializer_class = ArticleDetailSerializer
+    # По умолчанию отбирает статью по полю id, заменяем на поле slug, так как upls
+    # формируются на slug
+    lookup_field = 'slug'

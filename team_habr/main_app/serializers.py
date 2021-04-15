@@ -39,7 +39,8 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ('id', 'title', 'tags', 'poster', 'short_desc', 'date_update', 'author')
+        # slug тут не нужен, вставил временно, для упрощения демонстрации очередного спринта
+        fields = ('id', 'title', 'slug', 'tags', 'poster', 'short_desc', 'date_update', 'author')
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
     '''

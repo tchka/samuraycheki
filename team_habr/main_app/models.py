@@ -2,7 +2,42 @@ from django.conf import settings
 from django.db import models
 from slugify import slugify
 
-class Category(models.Model):
+import re
+
+class SlugifyCheck:
+    '''
+    Класс-родитель
+
+    Переопредяет метод .safe для контроля наличия и корректности слага
+    '''
+    def save(self, *args, **kwargs):
+        """
+        Переопределение метода Save класса CategoryPost
+        При вызове метода save выполняется провекра - заполнено ли поле slug у данной категории.
+        Если не заполнено, из поля "Наименование" категории генерируется slug
+        Далее, метод выполяет сохранение данных в базе.
+        """
+        from django.db import IntegrityError
+
+        if not self.slug:
+            self.slug = slugify(self.title)
+
+        while True:
+            try:
+                super().save(*args, **kwargs)
+            # Assuming the IntegrityError is due to a slug fight
+            except IntegrityError:
+                match_obj = re.match(r'^(.*)-(\d+)$', self.slug)
+                if match_obj:
+                    next_int = int(match_obj.group(2)) + 1
+                    self.slug = match_obj.group(1) + '-' + str(next_int)
+                else:
+                    self.slug += '-2'
+            else:
+                break
+
+
+class Category(SlugifyCheck, models.Model):
     """Модель категории статей"""
     name = models.CharField('Категория', max_length=128)
     slug = models.SlugField('Слаг',
@@ -17,25 +52,13 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
-        """
-        Переопределение метода Save класса CategoryPost
-        При вызове метода save выполняется провекра - заполнено ли поле slug у данной категории.
-        Если не заполнено, из поля "Наименование" категории генерируется slug
-        Далее, метод выполяет сохранение данных в базе.
-        """
-
-        if not self.slug:
-            self.slug = slugify(self.name)
-        return super().save(*args, **kwargs)
-
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
         ordering = ['name']
 
 
-class Tag(models.Model):
+class Tag(SlugifyCheck, models.Model):
     """Модель тегов"""
     name = models.CharField('Тег', max_length=128)
     slug = models.SlugField('Слаг',
@@ -48,25 +71,13 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
-        """
-        Переопределение метода Save класса CategoryPost
-        При вызове метода save выполняется провекра - заполнено ли поле slug у данной категории.
-        Если не заполнено, из поля "Наименование" категории генерируется slug
-        Далее, метод выполяет сохранение данных в базе.
-        """
-
-        if not self.slug:
-            self.slug = slugify(self.name)
-        return super().save(*args, **kwargs)
-
     class Meta:
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
         ordering = ['name']
 
 
-class Article(models.Model):
+class Article(SlugifyCheck, models.Model):
     """Модель статьи"""
     DRAFT = 'DR'
     WAITING = 'WT'
@@ -98,18 +109,6 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
-
-    def save(self, *args, **kwargs):
-        """
-        Переопределение метода Save класса CategoryPost
-        При вызове метода save выполняется провекра - заполнено ли поле slug у данной категории.
-        Если не заполнено, из поля "Наименование" категории генерируется slug
-        Далее, метод выполяет сохранение данных в базе.
-        """
-
-        if not self.slug:
-            self.slug = slugify(self.title)
-        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Статья'
