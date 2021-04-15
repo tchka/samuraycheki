@@ -17,21 +17,21 @@ import PostListSubMenu from "./PostListSubMenu/PostListSubMenu";
 
 
 const PostItem = props => {
-    let hashTag = ['hashTag1', 'hashTag2', 'hashTag3']
-    let hashTags = hashTag.map(hashTag => <HashTags hashTag={hashTag}/>)
+    debugger
+    let hashTags = props.article.tags.map(hashTag => <HashTags hashTag={hashTag}/>)
     return (
         <div className={s.container}>
             <Container>
                 <Row>
                     <Col>
                         <div className={s.avatar}><img src={avatar} alt=""/></div>
-                        <div className={s.item}><NavLink to={'/'}>nickName</NavLink></div>
-                        <div className={s.item}><span>сегодня в 23:35</span></div>
+                        <div className={s.item}><NavLink to={'/'}>{props.article.author}</NavLink></div>
+                        <div className={s.item}><span>{props.article.date_update}</span></div>
                     </Col>
                 </Row>
                 <Row>
                     <h2 className={s.title}>
-                        <NavLink to={'/'}>Python & оптимизация времени и памяти</NavLink>
+                        <NavLink to={'/'}>{props.article.title}</NavLink>
                     </h2>
                 </Row>
                 <Row>
@@ -41,15 +41,11 @@ const PostItem = props => {
                 </Row>
                 <Row>
                     <div className={s.container}>
-                        <img className={s.post_img} src={post} alt=""/>
+                        <img className={s.post_img} src={props.article.poster} alt=""/>
                     </div>
                 </Row>
                 <Row>
-                    Зачастую скорость выполнения python оставляет желать лучшего. Некоторые отказываются от
-                    использования python именно по этой причине, но существует несколько способов оптимизировать код
-                    python как по времени, так и по используемой памяти.
-
-                    Хотелось бы поделиться несколькими методами, которые помогают в реальных задачах.
+                    {props.article.short_desc}
                 </Row>
                 <Row>
                     <div className={s.title}>
