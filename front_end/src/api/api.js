@@ -7,8 +7,12 @@ let headers = {headers: {
 }
 }*/
 
-const BASE_URL = ''/*Место для базового УРЛ проекта*/
+const BASE_URL = 'http://127.0.0.1:8000/api/'/*Место для базового УРЛ проекта*/
 
 export const authApi = {
 
+}
+
+export const articlesApi = {
+    
 }

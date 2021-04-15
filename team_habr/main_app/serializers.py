@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from main_app.models import Category, Article
 
+
 class CategoryListSerializer (serializers.ModelSerializer):
     """Список категорий"""
 
@@ -40,6 +41,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = ('id', 'title', 'tags', 'poster', 'short_desc', 'date_update', 'author')
+        depth = 2
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
     '''
