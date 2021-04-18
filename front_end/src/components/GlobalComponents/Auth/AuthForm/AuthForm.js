@@ -8,12 +8,11 @@ const AuthForm = props => {
     return (
         <Form>
             <Form.Group >
-                <Form.Label>Email адрес</Form.Label>
-                <Form.Control placeholder="Введите email"
+                <Form.Label>Nickname</Form.Label>
+                <Form.Control placeholder="Введите nickname"
                 onChange={event => props.setAuthForm({...props.authForm, login: event.target.value})}
                 />
                 <Form.Text className="text-muted">
-                    Мы никогда не будем делиться вашей электронной почтой с кем-либо еще.
                 </Form.Text>
             </Form.Group>
 

@@ -17,7 +17,7 @@ const RegisterForm = props => {
             </Form.Group>
             <Form.Group controlId="formBasicEmail">
                 <Form.Label>Nickname</Form.Label>
-                <Form.Control type="email" placeholder="Введите Nickname" />
+                <Form.Control placeholder="Введите Nickname" />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
                 <Form.Label>Пароль</Form.Label>
@@ -28,7 +28,7 @@ const RegisterForm = props => {
                 <Form.Control type="password" placeholder="Повторите пароль" />
             </Form.Group>
             <Button variant="primary" type="submit">
-                Войти
+                Зарегистрироваться
             </Button>
         </Form>
     )
