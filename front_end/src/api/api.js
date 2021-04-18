@@ -7,7 +7,8 @@ let headers = {headers: {
 }
 }*/
 
-const BASE_URL = 'http://127.0.0.1:8000/api/'/*Место для базового УРЛ проекта*/
+const BASE_URL = 'http://127.0.0.1:8000/'/*Место для базового УРЛ проекта*/
+const API = 'api/'
 const ARTICLES = 'articles/'
 const CATEGORY = 'category/'
 const AUTH = 'auth/'
@@ -19,11 +20,11 @@ const ME = 'me/'
 
 export const articlesApi = {
     getArticlesList() {
-        return axios.get(`${BASE_URL}${ARTICLES}`, {headers: {Authorization: (read_cookie('Token'))}}
+        return axios.get(`${BASE_URL}${API}${ARTICLES}`, {headers: {Authorization: (read_cookie('Token'))}}
         )
     },
     getCategoriesList() {
-        return axios.get(`${BASE_URL}${CATEGORY}`, {headers: {Authorization: (read_cookie('Token'))}})
+        return axios.get(`${BASE_URL}${API}${CATEGORY}`, {headers: {Authorization: (read_cookie('Token'))}})
 
     }
 }

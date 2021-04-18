@@ -1,19 +1,25 @@
 /*React*/
-import React from 'react'
+import React, {useState} from 'react'
 import {connect} from 'react-redux';
-import AuthForm from "./AuthForm/AuthForm";
+/*Thunk*/
+import {userAuthMe} from "../../../store/userReducer";
 /*Components*/
-
+import AuthForm from "./AuthForm/AuthForm";
 
 const AuthFormContainer = props => {
-    return <AuthForm/>
+    const [authForm, setAuthForm] = useState({login:'', password:''})
+    const authMe = (form) => {props.userAuthMe(form.login, form.password)}
+    return <AuthForm
+        setAuthForm={setAuthForm} authForm={authForm} authMe={authMe} handleCloseAuth={props.handleCloseAuth}
+    />
 }
 
 let mapStateToProps = (state) => {
     return {
-        props: state
+        auth: state.auth,
+        userAuthMe:userAuthMe
     }
 }
 export default connect(mapStateToProps,
-    {}
+    {userAuthMe}
 )(AuthFormContainer)

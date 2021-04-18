@@ -6,8 +6,8 @@ import Button from "react-bootstrap/Button";
 /*style*/
 import { flexContainer } from "../../../../../globalStyles/glodalStyles";
 /*components*/
-import AuthForm from "../../../../GlobalComponents/Auth/AuthForm/AuthForm";
 import RegisterForm from "../../../../GlobalComponents/Auth/RegisterForm/RegisterForm";
+import AuthFormContainer from "../../../../GlobalComponents/Auth/AuthFormContainer";
 
 
 
@@ -29,7 +29,7 @@ const AuthButtons = props => {
                         <Modal.Title>Авторизация</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <AuthForm/>
+                        <AuthFormContainer handleCloseAuth={handleCloseAuth}/>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseAuth}>

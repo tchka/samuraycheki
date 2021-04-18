@@ -56,7 +56,7 @@ export const userAuthMe = (userName, password) => (dispatch) => {
     authApi.authMe(userName, password)
         .then(response => {
             if (response.status === 200) {
-                bake_cookie('Token', `Token ${response.data}`)
+                bake_cookie('Token', `Token ${response.data.auth_token}`)
                 dispatch(setIsAuth(true))
             }
         })
