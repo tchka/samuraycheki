@@ -1,11 +1,12 @@
 /*React*/
 import React from 'react'
 import {connect} from 'react-redux';
+import AuthForm from "./AuthForm/AuthForm";
 /*Components*/
-import NavMenu from "./NavMenu/NavMenu";
 
-const NavMenuContainer = props => {
-    return <div style={{marginBottom: "30px", marginTop: '30px'}}><NavMenu/></div>
+
+const AuthFormContainer = props => {
+    return <AuthForm/>
 }
 
 let mapStateToProps = (state) => {
@@ -15,4 +16,4 @@ let mapStateToProps = (state) => {
 }
 export default connect(mapStateToProps,
     {}
-)(NavMenuContainer)
+)(AuthFormContainer)
