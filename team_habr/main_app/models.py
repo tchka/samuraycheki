@@ -2,32 +2,17 @@ from django.conf import settings
 from django.db import models
 from slugify import slugify
 
+
 class Category(models.Model):
     """Модель категории статей"""
     name = models.CharField('Категория', max_length=128)
-    slug = models.SlugField('Слаг',
-        allow_unicode=True,
-        max_length=64,
-        editable=False,
-        unique=True)
     description = models.TextField('Описание')
-    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Родитель')
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True,
+                               verbose_name='Родитель', related_name='children')
     is_active = models.BooleanField('Активна', default=True, db_index=True)
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        """
-        Переопределение метода Save класса CategoryPost
-        При вызове метода save выполняется провекра - заполнено ли поле slug у данной категории.
-        Если не заполнено, из поля "Наименование" категории генерируется slug
-        Далее, метод выполяет сохранение данных в базе.
-        """
-
-        if not self.slug:
-            self.slug = slugify(self.name)
-        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Категория'

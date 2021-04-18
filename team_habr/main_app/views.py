@@ -3,10 +3,12 @@ from djoser.permissions import CurrentUserOrAdminOrReadOnly
 from rest_framework import permissions
 from rest_framework.generics import get_object_or_404
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.pagination import LimitOffsetPagination
+from rest_framework import viewsets, mixins
 
 from .models import Article, Category
 from auth_app.models import User
-from .serializers import ArticleDetailSerializer, ArticleListSerializer
+from .serializers import ArticleDetailSerializer, ArticleListSerializer, CategoryListSerializer
 
 
 class ArticleView(ListCreateAPIView):
@@ -16,6 +18,7 @@ class ArticleView(ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleListSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    pagination_class = LimitOffsetPagination
 
     # Поскольку при создании новой записи мы не указываем\выбираем автора, он должен подставиться
     # автоматически, то будет выпадать ошибка, что author_id не может быть NULL.
@@ -36,3 +39,8 @@ class SingleArticleView(RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleDetailSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class CategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = CategoryListSerializer
+    queryset = Category.objects.filter(is_active=True)

@@ -3,12 +3,28 @@ from rest_framework import serializers
 from main_app.models import Category, Article
 
 
+class FilterCategoryListSerializer(serializers.ListSerializer):
+    """Фильтр категорий, только parents"""
+    def to_representation(self, data):
+        data = data.filter(parent=None)
+        return super().to_representation(data)
+
+
+class RecursiveSerializer(serializers.Serializer):
+    """Вывод рекурсивно children"""
+    def to_representation(self, value):
+        serializer = self.parent.parent.__class__(value, context=self.context)
+        return serializer.data
+
+
 class CategoryListSerializer (serializers.ModelSerializer):
     """Список категорий"""
+    children = RecursiveSerializer(many=True)
 
     class Meta:
+        list_serializer_class = FilterCategoryListSerializer
         model = Category
-        exclude = ('description', )
+        fields = ('id', 'name', 'description', 'is_active', 'children')
 
 
 class CategoryDetailSerializer (serializers.ModelSerializer):
@@ -16,7 +32,7 @@ class CategoryDetailSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        field = ('id', 'name', 'slug', 'description', 'parent', 'is_active')
+        fields = ('id', 'name', 'description', 'parent', 'is_active')
 
 
 class ArticleListSerializer(serializers.ModelSerializer):
@@ -42,6 +58,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
         model = Article
         fields = ('id', 'title', 'tags', 'poster', 'short_desc', 'date_update', 'author')
         depth = 2
+
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
     '''
