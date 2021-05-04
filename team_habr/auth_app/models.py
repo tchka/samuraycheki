@@ -8,6 +8,8 @@ from django.dispatch import receiver
 class User(AbstractUser):
     """Расширение стандартной модели пользователя"""
     email = models.EmailField(unique=True)
+    locked = models.BooleanField('Заблокирован', default=False, db_index=True)
+    date_unlock = models.DateTimeField('Дата разблокировки', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Пользователь'
@@ -28,6 +30,17 @@ class UserProfile(models.Model):
     gender = models.CharField('Пол', max_length=1, choices=GENDER_CHOICES)
     date_of_birth = models.DateTimeField('Дата рождения', blank=True, null=True)
     avatar = models.ImageField('Аватар', upload_to='avatars/', default='avatar/default_avatar.jpg')
+
+    likes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Лайки от пользователей',
+        related_name='like_authors')
+    likes_count = models.PositiveIntegerField('Количество лайков', default=0)
+    dislikes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Дизлайки от пользователей',
+        related_name='dislike_authors')
+    dislikes_count = models.PositiveIntegerField('Количество дизлайков', default=0)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):

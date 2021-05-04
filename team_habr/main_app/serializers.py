@@ -17,6 +17,7 @@ class RecursiveSerializer(serializers.Serializer):
         return serializer.data
 
 
+
 class CategoryListSerializer (serializers.ModelSerializer):
     """Список категорий"""
     children = RecursiveSerializer(many=True)
@@ -58,6 +59,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
         model = Article
         fields = ('id', 'title', 'tags', 'poster', 'short_desc', 'date_update', 'author')
         depth = 2
+
 
 
 class ArticleDetailSerializer(serializers.ModelSerializer):

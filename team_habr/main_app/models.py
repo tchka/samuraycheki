@@ -57,8 +57,10 @@ class Article(models.Model):
     WAITING = 'WT'
     APPROVED = 'AP'
     REJECTED = 'RJ'
+    NEED_FIX = 'NF'
     STATUS_CHOICES = (
-        (DRAFT, 'Черновик'), (WAITING, 'Ожидает одобрения'), (APPROVED, 'Одобрена'), (REJECTED, 'Отклонена')
+        (DRAFT, 'Черновик'), (WAITING, 'Ожидает одобрения'), (APPROVED, 'Одобрена'), (REJECTED, 'Отклонена'),
+        (NEED_FIX, 'Требует исправления')
     )
 
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name='Категория')
@@ -70,9 +72,7 @@ class Article(models.Model):
         editable=False,
         unique=True)
     tags = models.ManyToManyField(Tag, verbose_name='Тег', blank=True)
-    # , blank=True, null=True в poster надо убрать! postman не смог отправить файл
-    # пришлось ограничить
-    poster = models.ImageField('Постер', upload_to='posters/', blank=True, null=True)
+    poster = models.ImageField('Постер', upload_to='posters/', null=True)
     short_desc = models.CharField('Описание', max_length=512)
     text = models.TextField('Текст')
     status = models.CharField('Статус', max_length=2, choices=STATUS_CHOICES, default='DR')
@@ -80,6 +80,19 @@ class Article(models.Model):
     date_create = models.DateTimeField('Создана', auto_now_add=True)
     date_update = models.DateTimeField('Обновлена', auto_now=True)
     is_active = models.BooleanField('Активна', default=True, db_index=True)
+
+    likes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Лайки от пользователей',
+        related_name='like_articles'
+    )
+    likes_count = models.PositiveIntegerField('Количество лайков', default=0)
+    dislikes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Дизлайки от пользователей',
+        related_name='dislike_articles'
+    )
+    dislikes_count = models.PositiveIntegerField('Количество дизлайков', default=0)
 
     def __str__(self):
         return self.title
@@ -102,3 +115,57 @@ class Article(models.Model):
         ordering = ['-date_update']
 
 
+class Reviews(models.Model):
+    """Отзывы пользователей о статье"""
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Статья')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Родитель')
+    text = models.TextField('Отзыв')
+    date_create = models.DateTimeField('Создана', auto_now_add=True)
+    is_active = models.BooleanField('Активна', default=True, db_index=True)
+
+    likes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Лайки от пользователей',
+        related_name='like_reviews')
+    likes_count = models.PositiveIntegerField('Количество лайков', default=0)
+    dislikes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Дизлайки от пользователей',
+        related_name='dislike_reviews'
+    )
+    dislikes_count = models.PositiveIntegerField('Количество дизлайков', default=0)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.article}'
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+
+class Complaints(models.Model):
+    """Жалобы пользователей"""
+    ARTICLE = 'AT'
+    COMMENT = 'CM'
+
+    ENTITY_CHOICES = ((ARTICLE, 'Статья'), (COMMENT, 'Комментарий'))
+
+    WAITING = 'WT'
+    APPROVED = 'AP'
+    REJECTED = 'RJ'
+
+    STATUS_CHOICES = ((WAITING, 'Ожидает рассмотрения'), (APPROVED, 'Одобрена'), (REJECTED, 'Отклонена'))
+
+    model = models.CharField('Модель', max_length=2, choices=ENTITY_CHOICES, default='AT')
+    model_id = models.IntegerField('ID записи модели')
+    text = models.TextField('Жалоба')
+    answer = models.TextField('Ответ', blank=True)
+    status = models.CharField('Статус', max_length=2, choices=STATUS_CHOICES, default='WT', db_index=True)
+
+    def __str__(self):
+        return f'{self.pk} - {self.model}'
+
+    class Meta:
+        verbose_name = 'Жалоба'
+        verbose_name_plural = 'Жалобы'
