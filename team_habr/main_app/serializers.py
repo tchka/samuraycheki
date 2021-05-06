@@ -36,11 +36,13 @@ class ArticleListSerializer(serializers.ModelSerializer):
     # Есть метод SlugRelatedField для этого slug_field="username" - из какого поля получим значение
     # связанной таблицы.
     author = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    tags = serializers.SlugRelatedField(slug_field="name", read_only=True, many=True)
 
     class Meta:
         model = Article
         # slug тут не нужен, вставил временно, для упрощения демонстрации очередного спринта
-        fields = ('id', 'title', 'slug', 'tags', 'poster', 'short_desc', 'date_update', 'author')
+        # text тоже временно, postman постит то,что листит. Надо api во вью изменить
+        fields = ('id', 'title', 'slug', 'tags', 'poster', 'short_desc', 'text', 'date_update', 'author')
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
     '''
@@ -61,6 +63,7 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
     # надо будет ставить для данного поля 'many=True'
     category = serializers.SlugRelatedField(slug_field="name", read_only=True)
     author = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    tags = serializers.SlugRelatedField(slug_field="name", read_only=True, many=True)
 
     class Meta:
         model = Article

@@ -6,6 +6,20 @@ from .models import Article, Category
 from auth_app.models import User
 from .serializers import ArticleDetailSerializer, ArticleListSerializer
 
+from django.http.response import JsonResponse
+from rest_framework.decorators import api_view
+
+"""
+@api_view(['GET'])
+def tutorial_list_published(request):
+    # GET all published tutorials
+    tutorials = Article.objects.all()
+
+    if request.method == 'GET':
+        tutorials_serializer = ArticleListSerializer(tutorials, many=True)
+        return JsonResponse(tutorials_serializer.data, safe=False)
+"""
+
 class ArticleView(ListCreateAPIView):
     '''
     Класс ListCreateAPIView автоматически создает методы get и post
