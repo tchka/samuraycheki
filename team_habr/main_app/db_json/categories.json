@@ -1,17 +1,14 @@
 [
   {
     "name": "Разработка",
-    "slug": "development",
     "description": "Разработка"
   },
   {
     "name": "Администрирование",
-    "slug": "administration",
     "description": "Администрирование"
   },
   {
     "name": "Дизайн",
-    "slug": "design",
     "description": "Дизайн"
   }
 ]
